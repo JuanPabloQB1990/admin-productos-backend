@@ -1,4 +1,4 @@
-name: Node.js Typescript - API REST
+name: Node.js Typescript - API REST - CI/CD
 
 # Ejecutar cuando ocurra un push o pull request a la rama principal
 on:
