@@ -1,0 +1,36 @@
+name: Node.js Typescript - API REST
+
+# Ejecutar cuando ocurra un push o pull request a la rama principal
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+
+# Definir el sistema operativo y versión de Node.js
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [20.17.0]  # Puedes cambiar a las versiones que uses
+
+    steps:
+      # Checkout del código del repositorio
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      # Configurar Node.js
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      # Instalar dependencias del proyecto
+      - name: Install dependencies
+        run: npm install
+
+      # Ejecutar las pruebas
+      - name: Run tests
+        run: npm test
