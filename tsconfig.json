@@ -3,9 +3,9 @@
         "outDir":"./dist",
         "rootDir":"./src",
         "lib": ["esnext"],
-        "target": "ESNext", // permite el new en los objetos modelos
-        "moduleResolution": "NodeNext", // permite el new en los objetos modelos
-        "module": "NodeNext", // permite el new en los objetos modelos
+        "target": "ESNext", // permite el new en los objetos modelos en sequelize
+        "moduleResolution": "NodeNext", // permite el new en los objetos modelos en sequelize
+        "module": "NodeNext", // permite el new en los objetos modelos en sequelize
         "strict": false,
         "sourceMap": true,
         "esModuleInterop": true,
