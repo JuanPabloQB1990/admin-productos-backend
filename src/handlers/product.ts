@@ -54,7 +54,7 @@ export const updateProduct = async (req : Request, res : Response) => {
         
         await product.update(req.body)
         await product.save()
-        res.status(201).json({data: product})
+        res.status(200).json({data: product})
     } catch (error) {
         console.log(error);
         

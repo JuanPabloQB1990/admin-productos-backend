@@ -130,9 +130,9 @@ describe("PUT - /api/products/:id", () => {
             availability: true
         })
 
-        expect(response.status).toBe(201)
-        expect(response.body).toHaveProperty("message")
-        expect(response.body.message).toBe("Producto actualizado satisfactoriamente")
+        expect(response.status).toBe(200)
+        expect(response.body).toHaveProperty("data")
+        expect(response.body.data).toBeInstanceOf(Object)
     })
 
     test("should return a 404 error if the product is not found", async () => {
@@ -186,9 +186,9 @@ describe("PATCH - /api/products/:id", () => {
             name: "Mouse - testing",
             price: 100000
         })
-        expect(response.status).toBe(201)
-        expect(response.body).toHaveProperty("message")
-        expect(response.body.message).toBe("Disponibilidad actualizada satisfactoriamente")
+        expect(response.status).toBe(200)
+        expect(response.body).toHaveProperty("data")
+        expect(response.body.data).toBeInstanceOf(Object)
     }) 
 })
 
