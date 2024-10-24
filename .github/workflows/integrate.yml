@@ -7,6 +7,11 @@ on:
   pull_request:
     branches: [master]
 
+# Variables de entorno
+env:
+  DATABASE_URL: ${{ secrets.DATABASE_URL }}
+  PORT: ${{ secrets.PORT }}
+
 # Definir el sistema operativo y versión de Node.js
 jobs:
   build:
