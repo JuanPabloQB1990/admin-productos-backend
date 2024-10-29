@@ -3,7 +3,11 @@ import Product from "../models/Product.model";
 
 export const getProducts = async (req : Request, res : Response) => {
     try {
-        const products = await Product.findAll()
+        const products = await Product.findAll({
+            order: [
+                ['id', 'DESC']
+            ]
+        })
         if (!products) {
             res.status(404).json({message: "No hay productos en la lista"})
             return 
@@ -30,7 +34,6 @@ export const getProductById = async (req : Request, res : Response) => {
 }
 
 export const createProduct = async(req : Request, res : Response) => {
-    console.log(req.body);
     
     try {
         const saveProdcuct = await Product.create(req.body)
@@ -64,6 +67,8 @@ export const updateProduct = async (req : Request, res : Response) => {
 
 export const updateAvailability = async (req : Request, res : Response) => {
     const { id } = req.params
+    console.log(id);
+    
     try {
         const product = await Product.findByPk(id)
         if (!product) {

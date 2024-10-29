@@ -4,6 +4,8 @@ import db from './config/db'
 import colors from 'colors'
 import swaggerUi from 'swagger-ui-express'
 import swaggerSpec from './config/swagger'
+import cors, { CorsOptions } from 'cors'
+import morgan from 'morgan'
 
 // conectar a base de datos
 export async function connectDatabase() {
@@ -22,8 +24,21 @@ connectDatabase()
 
 const server = express()
 
-server.use(express.json())
-server.use("/api/products", productsRouter)
+const corsOptions: CorsOptions = {
+    origin: function(origin, callback) {
+        
+        if(origin === process.env.FRONTEND_URL) {
+            callback(null, true)
+        }else{
+            callback(new Error("Error de cors"))
+        }
+    }
+}
+
 server.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec))
+server.use(cors(corsOptions))
+server.use(express.json())
+server.use(morgan('dev'))
+server.use("/api/products", productsRouter)
 
 export default server
