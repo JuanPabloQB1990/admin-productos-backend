@@ -13,5 +13,6 @@
         "experimentalDecorators": true, // habilita los decorators o @ en la capa modelo
         "emitDecoratorMetadata": true // habilita los decorators o @ en la capa modelo
     },
-    "include": ["src/**/*.ts"]
+    "include": ["src/**/*.ts"],
+    "exclude": ["src/**/*.test.ts"]
 }
