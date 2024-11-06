@@ -1,7 +1,8 @@
-import { Router } from "express"
+import { Router, Request, Response } from "express"
 import { createProduct, deleteProduct, getProductById, getProducts, updateAvailability, updateProduct } from "./handlers/product"
 import { handleInputErrors } from "./middleware"
 import { body, param } from "express-validator"
+import emailRegistro from "./helpers/emails"
 
 const router = Router()
 
@@ -263,5 +264,17 @@ router.delete('/:id',
     param('id').isInt().withMessage("Id no valido"),
     handleInputErrors,
     deleteProduct)
+
+router.post("/contact", async(req: Request, res: Response)  => {
+    try {
+        const response = await emailRegistro(req.body)
+        console.log(response);
+        res.json({msg: "ok"})
+        return 
+    } catch (error) {
+        console.log(error);
+        
+    }
+})
 
 export default router

@@ -27,7 +27,7 @@ const server = express()
 const corsOptions: CorsOptions = {
     origin: function(origin, callback) {
         
-        if(origin === process.env.FRONTEND_URL) {
+        if(origin === process.env.FRONTEND_URL || origin === process.env.FONTEND_URL_EMAIL) {
             callback(null, true)
         }else{
             callback(new Error("Error de cors"))
@@ -40,5 +40,6 @@ server.use(cors(corsOptions))
 server.use(express.json())
 server.use(morgan('dev'))
 server.use("/api/products", productsRouter)
+server.use("/api/emails", productsRouter)
 
 export default server
