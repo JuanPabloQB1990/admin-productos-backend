@@ -1,41 +1,31 @@
-name: Node.js Typescript - API REST - CI/CD
+name: Node.js TypeScript API - CI
 
-# Ejecutar cuando ocurra un push o pull request a la rama principal
 on:
   push:
     branches: [master]
   pull_request:
     branches: [master]
 
-# Variables de entorno
 env:
-  DATABASE_URL: ${{ secrets.DATABASE_URL }}
-  PORT: ${{ secrets.PORT }}
+  NODE_ENV: test
+  PORT: 4000
 
-# Definir el sistema operativo y versión de Node.js
 jobs:
-  build:
+  test:
     runs-on: ubuntu-latest
 
-    strategy:
-      matrix:
-        node-version: [20.17.0]  # Puedes cambiar a las versiones que uses
-
     steps:
-      # Checkout del código del repositorio
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
-      # Configurar Node.js
       - name: Set up Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
-          node-version: ${{ matrix.node-version }}
+          node-version: 20
+          cache: 'npm'
 
-      # Instalar dependencias del proyecto
       - name: Install dependencies
-        run: npm install
+        run: npm ci
 
-      # Ejecutar las pruebas
       - name: Run tests
         run: npm test
