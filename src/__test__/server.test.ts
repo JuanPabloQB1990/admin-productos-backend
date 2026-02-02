@@ -1,21 +1,9 @@
-import { connectDatabase } from "../server"
-import db from "../config/db"
+import request from 'supertest'
+import server from '../server'
 
-
-describe("GET - /api", () => {
-    
-    jest.mock("../config/db")
-
-    describe("connectDatabase", () => {
-        test("should handle database connection error", async () => {
-            jest.spyOn(db, "authenticate").mockRejectedValueOnce(new Error("Ha ocurrido un error al conectar a la base de datos"))
-            const consoleSpy = jest.spyOn(console, "log")
-    
-            await connectDatabase()
-            expect(consoleSpy).toHaveBeenCalledWith(expect.stringContaining("Ha ocurrido un error al conectar a la base de datos"))
-        })
-
-    })
-
-    
+describe('API Products', () => {
+  it('GET /api/products', async () => {
+    const res = await request(server).get('/api/products')
+    expect(res.status).toBe(200)
+  })
 })

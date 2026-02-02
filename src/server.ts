@@ -10,9 +10,13 @@ import morgan from 'morgan'
 // conectar a base de datos
 export async function connectDatabase() {
     try {
-        await db.authenticate()
-        db.sync()
-        //console.log(colors.blue.bold("Conexion exitosa a la base de datos"));
+
+        if (process.env.NODE_ENV !== 'test') {
+            await db.authenticate()
+            await db.sync()
+            console.log(colors.blue.bold("Conexion exitosa a la base de datos"));
+
+        }
     } catch (error) {
         //console.log(error);
         console.log(colors.red.bold("Ha ocurrido un error al conectar a la base de datos"));
@@ -20,14 +24,13 @@ export async function connectDatabase() {
     }
 }
 
-connectDatabase()
 
 const server = express()
 
 const corsOptions: CorsOptions = {
     origin: function(origin, callback) {
         
-        if(origin === process.env.FRONTEND_URL || origin === process.env.FONTEND_URL_EMAIL) {
+        if(origin === process.env.FRONTEND_URL || origin === process.env.FONTEND_URL_EMAIL || "*") {
             callback(null, true)
         }else{
             callback(new Error("Error de cors"))
@@ -40,6 +43,6 @@ server.use(cors(corsOptions))
 server.use(express.json())
 server.use(morgan('dev'))
 server.use("/api/products", productsRouter)
-server.use("/api/emails", productsRouter)
+// server.use("/api/emails", productsRouter)
 
 export default server

@@ -67,7 +67,6 @@ export const updateProduct = async (req : Request, res : Response) => {
 
 export const updateAvailability = async (req : Request, res : Response) => {
     const { id } = req.params
-    console.log(id);
     
     try {
         const product = await Product.findByPk(id)
