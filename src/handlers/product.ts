@@ -8,13 +8,17 @@ export const getProducts = async (req : Request, res : Response) => {
                 ['id', 'DESC']
             ]
         })
-        if (!products) {
-            res.status(404).json({message: "No hay productos en la lista"})
+        
+        if (products.length === 0) {
+           
+            res.json({message: "No hay productos en la lista", data:[]})
             return 
         }
         res.json({data:products})
     } catch (error) {
-        console.log(error)
+        
+         res.status(500).json({ error: 'Hubo un error al obtener los productos' });
+         return
     }
 }
 
@@ -28,7 +32,8 @@ export const getProductById = async (req : Request, res : Response) => {
         }
         res.json({data:product})
     } catch (error) {
-        console.log(error);
+        res.status(500).json({ error: 'Hubo un error al obtener el producto' });
+        return
         
     }
 }
@@ -40,7 +45,8 @@ export const createProduct = async(req : Request, res : Response) => {
         res.status(201).json({data: saveProdcuct})
         
     } catch (error) {
-        console.log(error);
+        res.status(500).json({ error: 'Hubo un error al crear el producto' });
+        return
         
     }
     
@@ -59,7 +65,8 @@ export const updateProduct = async (req : Request, res : Response) => {
         await product.save()
         res.status(200).json({data: product})
     } catch (error) {
-        console.log(error);
+        res.status(500).json({ error: 'Hubo un error al actualizar el producto' });
+        return
         
     }
     
@@ -79,7 +86,8 @@ export const updateAvailability = async (req : Request, res : Response) => {
         await product.save()
         res.status(200).json({data : product})
     } catch (error) {
-        console.log(error);
+        res.status(500).json({ error: 'Hubo un error al actualizar disponibilidad el producto' });
+        return
         
     }
     
@@ -91,14 +99,15 @@ export const deleteProduct = async (req : Request, res : Response) => {
     try {
         const product = await Product.findByPk(id)
         if (!product) {
-            res.json({message: "Producto no encontrado"})
+            res.status(404).json({message: "Producto no encontrado"})
             return 
         }
         
         await product.destroy()
         res.json({message: "Producto eliminado satisfactoriamente"})
     } catch (error) {
-        console.log(error);
+        res.status(500).json({ error: 'Hubo un error al eliminar el producto' });
+        return
         
     }
     

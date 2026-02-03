@@ -265,15 +265,5 @@ router.delete('/:id',
     handleInputErrors,
     deleteProduct)
 
-// router.post("/contact", async(req: Request, res: Response)  => {
-//     try {
-//         const response = await emailRegistro(req.body)
-//         res.json({msg: "ok"})
-//         return 
-//     } catch (error) {
-//         console.log(error);
-        
-//     }
-// })
 
 export default router
