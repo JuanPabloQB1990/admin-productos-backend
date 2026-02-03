@@ -7,8 +7,10 @@ on:
     branches: [master]
 
 env:
-  NODE_ENV: test
-  PORT: 4000
+  # GitHub necesita saber a qué base de datos conectarse en su entorno
+  DATABASE_URL: mysql://root:Juanpablo1990@127.0.0.1:3306/productsadmin
+  DATABASE_URL_TEST: mysql://root:Juanpablo1990@127.0.0.1:3306/productsadmintest
+  PORT: 5000
 
 jobs:
   test:
