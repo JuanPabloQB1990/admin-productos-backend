@@ -16,6 +16,7 @@ Este repositorio fue creado para demostrar competencias técnicas en:
 - Manejo de bases de datos SQL con Sequelize
 - Uso de TypeScript en entornos productivos
 - Validaciones robustas y manejo centralizado de errores
+- Documentacion y manipulacion de api con Swagger
 
 ---
 
@@ -29,7 +30,8 @@ Este repositorio fue creado para demostrar competencias técnicas en:
 - Jest  
 - Supertest  
 - dotenv  
-- express-validator  
+- express-validator
+- Swagger
 
 ---
 
