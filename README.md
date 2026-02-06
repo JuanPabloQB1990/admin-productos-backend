@@ -124,7 +124,7 @@ http://localhost:5000/docs
 
   [![swagger-admin-products.png](https://i.postimg.cc/zGDYKr41/swagger-admin-products.png)](https://postimg.cc/ppSSMg20)
 
-## si deseas ejecutar el frontend de este proyecto dirigete al repositorio y sigue los pasos del Readmi.md en este link:
+## Si deseas ejecutar el frontend de este proyecto dirigete al repositorio y sigue los pasos del Readmi.md en este link:
 
 https://github.com/JuanPabloQB1990/admin-products-frontend
   
