@@ -65,7 +65,7 @@ Crea dos bases de datos una para ambiente de desarrollo y otra para los test par
 adminproducts
 adminproductstest
 
-⚙️ Variables de Entorno
+## ⚙️ Variables de Entorno
 
 Crear un archivo .env en la raíz del proyecto:
 ```bash
@@ -75,7 +75,7 @@ PORT=5000
 FRONTEND_URL=http://localhost:5173
 ```
 
-▶️ Ejecución del Proyecto
+##▶️ Ejecución del Proyecto
 
 Modo desarrollo
 
@@ -83,7 +83,7 @@ Modo desarrollo
 npm run dev
 ```
 
-🧪 Testing Automatizado
+##🧪 Testing Automatizado
 
 El proyecto incluye pruebas de integración completas que validan la lógica del negocio y el correcto funcionamiento de la API.
 
