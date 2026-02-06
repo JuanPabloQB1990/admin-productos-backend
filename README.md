@@ -33,7 +33,6 @@ Este repositorio fue creado para demostrar competencias técnicas en:
 
 ---
 
-
 ### Principios aplicados
 - **Controllers**: lógica de negocio
 - **Routes**: definición de endpoints
@@ -47,14 +46,20 @@ Este repositorio fue creado para demostrar competencias técnicas en:
 
 ```bash
 git clone https://github.com/JuanPabloQB1990/admin-productos-backend.git
+```
 
+```bash
 cd admin-productos-backend
+```
 
+```bash
 npm install
 
 ```
 
-## Crea dos bases de datos una para ambiente de desarrollo y otra para los test para luego agregar la url de cada una en las variables de entorno:
+## Crear bases de datos
+
+Crea dos bases de datos una para ambiente de desarrollo y otra para los test para luego agregar la url de cada una en las variables de entorno:
 adminproducts
 adminproductstest
 
@@ -69,7 +74,9 @@ FRONTEND_URL=http://localhost:5173
 ```
 
 ▶️ Ejecución del Proyecto
+
 Modo desarrollo
+
 ```bash
 npm run dev
 ```
