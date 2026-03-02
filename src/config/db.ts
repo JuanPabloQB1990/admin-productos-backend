@@ -6,8 +6,6 @@ dotenv.config();
 
 const DATABASE_URL_MYSQL = process.env.NODE_ENV === "test" ? process.env.DATABASE_URL_TEST : process.env.DATABASE_URL
 
-console.log(DATABASE_URL_MYSQL);
-
 const db = new Sequelize(DATABASE_URL_MYSQL!, {
   dialect: 'mysql',
   models: [__dirname + "/../models/**/*"],

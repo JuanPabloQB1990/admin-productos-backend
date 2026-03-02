@@ -1,8 +1,7 @@
-import { Router, Request, Response } from "express"
+import { Router } from "express"
 import { createProduct, deleteProduct, getProductById, getProducts, updateAvailability, updateProduct } from "./handlers/product"
 import { handleInputErrors } from "./middleware"
 import { body, param } from "express-validator"
-// import emailRegistro from "./helpers/emails"
 
 const router = Router()
 
