@@ -1,7 +1,7 @@
 # 🧩 Admin Productos Backend API
 
-API REST profesional para la administración de productos, desarrollada con **Node.js, Express, TypeScript y Sequelize**.  
-Este proyecto demuestra buenas prácticas de desarrollo backend, testing automatizado, validaciones, manejo de errores y diseño de APIs RESTful.
+API REST profesional para la administración de productos, desplegada en railway, desarrollada con **Node.js, Express, Swagger, Jest, Supertest, TypeScript y Sequelize**.  
+Este proyecto demuestra buenas prácticas de desarrollo backend, testing automatizado, CI/CD, validaciones, manejo de errores y diseño de APIs RESTful.
 
 ---
 
@@ -62,8 +62,14 @@ npm install
 ## Crear bases de datos
 
 Crea dos bases de datos una para ambiente de desarrollo y otra para los test para luego agregar la url de cada una en las variables de entorno:
+
+```bash
 adminproducts
+```
+
+```bash
 adminproductstest
+```
 
 ## ⚙️ Variables de Entorno
 
@@ -117,14 +123,21 @@ Testing de controladores
 
 ## Manipula la api sin cliente frontend con la ayuda de Swagger desde este link, cuando ejecutes la api:
 
-
+Swagger modo desarrollo
 ```bash
 http://localhost:5000/docs
 ```
 
-  [![swagger-admin-products.png](https://i.postimg.cc/zGDYKr41/swagger-admin-products.png)](https://postimg.cc/ppSSMg20)
+Swagger modo Producción
+```bash
+https://admin-productos-backend-production.up.railway.app/docs
+```
 
-## Si deseas ejecutar el frontend de este proyecto dirigete al repositorio y sigue los pasos del Readmi.md en este link:
+[![swagger-admin-products.png](https://i.postimg.cc/zGDYKr41/swagger-admin-products.png)](https://postimg.cc/ppSSMg20)
 
+## Si deseas ejecutar el frontend de este proyecto en modo producción o desarrollo, dirigete al repositorio y sigue los pasos del Readmi.md en este link:
+
+```bash
 https://github.com/JuanPabloQB1990/admin-products-frontend
+```
   
