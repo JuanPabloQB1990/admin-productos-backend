@@ -1,114 +1,187 @@
-import { Request, Response } from "express"
+import { Request, Response } from "express";
 import Product from "../models/Product.model";
 
-export const getProducts = async (req : Request, res : Response) => {
+/**
+ * Helper para manejar errores
+ */
+const handleError = (res: Response, error: unknown, message = "Error interno del servidor") => {
+    console.error(error);
+    return res.status(500).json({ error: message });
+};
+
+/**
+ * GET /api/products
+ */
+export const getProducts = async (_req: Request, res: Response) => {
     try {
         const products = await Product.findAll({
-            order: [
-                ['id', 'DESC']
-            ]
-        })
-        
-        if (products.length === 0) {
-           
-            res.json({message: "No hay productos en la lista", data:[]})
-            return 
-        }
-        res.json({data:products})
-    } catch (error) {
-        
-         res.status(500).json({ error: 'Hubo un error al obtener los productos' });
-         return
-    }
-}
+            order: [["id", "DESC"]],
+        });
 
-export const getProductById = async (req : Request, res : Response) => {
-    
+        res.status(200).json({
+            success: true,
+            count: products.length,
+            data: products,
+        });
+        return 
+    } catch (error) {
+        handleError(res, error, "Error al obtener los productos");
+        return 
+    }
+};
+
+/**
+ * GET /api/products/:id
+ */
+export const getProductById = async (req: Request, res: Response) => {
     try {
-        const product = await Product.findByPk(req.params.id)
+        const { id } = req.params;
+
+        const product = await Product.findByPk(id);
+
         if (!product) {
-            res.status(404).json({message: "Producto no encontrado"})
-            return 
+            res.status(404).json({
+                success: false,
+                message: "Producto no encontrado",
+            });
+            return;
+
         }
-        res.json({data:product})
-    } catch (error) {
-        res.status(500).json({ error: 'Hubo un error al obtener el producto' });
-        return
-        
-    }
-}
 
-export const createProduct = async(req : Request, res : Response) => {
-    
-    try {
-        const saveProdcuct = await Product.create(req.body)
-        res.status(201).json({data: saveProdcuct})
-        
-    } catch (error) {
-        res.status(500).json({ error: 'Hubo un error al crear el producto' });
+        res.status(200).json({
+            success: true,
+            data: product,
+        });
         return
-        
+    } catch (error) {
+        handleError(res, error, "Error al obtener el producto");
+        return 
     }
-    
-}
+};
 
-export const updateProduct = async (req : Request, res : Response) => {
-    const { id } = req.params
+/**
+ * POST /api/products
+ */
+export const createProduct = async (req: Request, res: Response) => {
     try {
-        const product = await Product.findByPk(id)
+        const { name, price, availability } = req.body;
+
+        // ✅ Validación básica
+        if (!name || price == null) {
+            res.status(400).json({
+                success: false,
+                message: "Nombre y precio son obligatorios",
+            });
+            return;
+        }
+
+        const product = await Product.create({
+            name,
+            price,
+            availability: availability ?? true,
+        });
+
+        res.status(201).json({
+            success: true,
+            data: product,
+        });
+        return
+    } catch (error) {
+        handleError(res, error, "Error al crear el producto");
+        return
+    }
+};
+
+/**
+ * PUT /api/products/:id
+ */
+export const updateProduct = async (req: Request, res: Response) => {
+    try {
+        const { id } = req.params;
+
+        const product = await Product.findByPk(id);
+
         if (!product) {
-            res.status(404).json({message: "Producto no encontrado"})
-            return 
-        }
-        
-        await product.update(req.body)
-        await product.save()
-        res.status(200).json({data: product})
-    } catch (error) {
-        res.status(500).json({ error: 'Hubo un error al actualizar el producto' });
-        return
-        
-    }
-    
-}
+            res.status(404).json({
+                success: false,
+                message: "Producto no encontrado",
+            });
+            return;
 
-export const updateAvailability = async (req : Request, res : Response) => {
-    const { id } = req.params
-    
-    try {
-        const product = await Product.findByPk(id)
-        if (!product) {
-            res.status(404).json({message: "Producto no encontrado"})
-            return 
         }
-        
-        product.availability = !product.dataValues.availability
-        await product.save()
-        res.status(200).json({data : product})
-    } catch (error) {
-        res.status(500).json({ error: 'Hubo un error al actualizar disponibilidad el producto' });
-        return
-        
-    }
-    
-}
 
-export const deleteProduct = async (req : Request, res : Response) => {
-    
-    const { id } = req.params
-    try {
-        const product = await Product.findByPk(id)
-        if (!product) {
-            res.status(404).json({message: "Producto no encontrado"})
-            return 
-        }
-        
-        await product.destroy()
-        res.json({message: "Producto eliminado satisfactoriamente"})
+        await product.update(req.body);
+
+        res.status(200).json({
+            success: true,
+            data: product,
+        });
+        return 
     } catch (error) {
-        res.status(500).json({ error: 'Hubo un error al eliminar el producto' });
-        return
-        
+        handleError(res, error, "Error al actualizar el producto");
+        return 
     }
-    
-}
+};
+
+/**
+ * PATCH /api/products/:id/availability
+ */
+export const updateAvailability = async (req: Request, res: Response) => {
+    try {
+        const { id } = req.params;
+
+        const product = await Product.findByPk(id);
+
+        if (!product) {
+            res.status(404).json({
+                success: false,
+                message: "Producto no encontrado",
+            });
+            return;
+        }
+
+        product.availability = !product.availability;
+
+        await product.save();
+
+        res.status(200).json({
+            success: true,
+            data: product,
+        });
+        return
+    } catch (error) {
+        handleError(res, error, "Error al actualizar disponibilidad");
+        return 
+    }
+};
+
+/**
+ * DELETE /api/products/:id
+ */
+export const deleteProduct = async (req: Request, res: Response) => {
+    try {
+        const { id } = req.params;
+
+        const product = await Product.findByPk(id);
+
+        if (!product) {
+            res.status(404).json({
+                success: false,
+                message: "Producto no encontrado",
+            });
+            return;
+
+        }
+
+        await product.destroy();
+
+        res.status(200).json({
+            success: true,
+            message: "Producto eliminado correctamente",
+        });
+        return
+    } catch (error) {
+        handleError(res, error, "Error al eliminar el producto");
+        return
+    }
+};

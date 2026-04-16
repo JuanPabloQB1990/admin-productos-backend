@@ -118,7 +118,6 @@ router.get('/:id',
  */
 
 router.post('/', 
-
     body('name')
         .notEmpty().withMessage("El nombre del producto es requerido"),
         

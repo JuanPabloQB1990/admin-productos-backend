@@ -3,6 +3,7 @@ import dotenv from "dotenv";
 dotenv.config();
 
 // Cargamos el .env correspondiente antes de inicializar
+console.log(process.env.DATABASE_URL);
 
 const DATABASE_URL_MYSQL = process.env.NODE_ENV === "test" ? process.env.DATABASE_URL_TEST : process.env.DATABASE_URL
 

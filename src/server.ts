@@ -9,22 +9,32 @@ import morgan from 'morgan'
 
 // conectar a base de datos
 export async function connectDatabase() {
-    try {
+    const maxRetries = 5;
+    let attempt = 0;
 
-        if (process.env.NODE_ENV !== 'test') {
-            await db.authenticate()
-            await db.sync({ alter: true })
-            console.log(colors.blue.bold("Conexión exitosa a DB de Desarrollo"));
+    while (attempt < maxRetries) {
+        try {
+            if (process.env.NODE_ENV !== 'test') {
+                await db.authenticate();
+                await db.sync({ alter: true });
+                console.log(colors.blue.bold("✅ Conexión exitosa a DB"));
+            } else {
+                console.log(colors.magenta.bold("Datos de TEST reiniciados"));
+                await db.sync({ force: true });
+            }
+            return; // éxito → salir
+        } catch (error) {
+            attempt++;
+            console.error(colors.red.bold(`❌ Error DB (intento ${attempt}):`), error.message);
 
-        }else{
-            console.log(colors.magenta.bold("Datos de TEST reiniciados"));
-            // En tests, borramos y recreamos para que esté limpia
-            await db.sync({ force: true });
+            if (attempt >= maxRetries) {
+                console.error("💥 No se pudo conectar a la DB después de varios intentos");
+                process.exit(1); // opcional (reinicia contenedor)
+            }
+
+            // esperar antes de reintentar
+            await new Promise(res => setTimeout(res, 5000));
         }
-    } catch (error) {
-        //console.log(error);
-        console.log(colors.red.bold("Ha ocurrido un error al conectar a la base de datos"));
-        
     }
 }
 

@@ -29,7 +29,6 @@
     "typescript": "^5.6.3"
   },
   "dependencies": {
-    "-": "^0.0.1",
     "@types/cors": "^2.8.17",
     "colors": "^1.4.0",
     "cors": "^2.8.5",
