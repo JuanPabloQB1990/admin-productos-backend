@@ -19,6 +19,7 @@ describe("API /api/products", () => {
 
   describe("POST /api/products  - error handling", () => {
     it("should return 500 if an error occurs", async () => {
+      jest.spyOn(console, "error").mockImplementation(() => {});
       jest
         .spyOn(Product, "create")
         .mockRejectedValueOnce(new Error("Create error"));
@@ -133,6 +134,7 @@ describe("API /api/products", () => {
       jest.restoreAllMocks();
     });
     it("should return 500 if an error occurs", async () => {
+      jest.spyOn(console, "error").mockImplementation(() => {});
       jest
         .spyOn(Product, "findByPk")
         .mockRejectedValueOnce(new Error("DB error"));
@@ -193,6 +195,7 @@ describe("API /api/products", () => {
       jest.restoreAllMocks();
     });
     it("should return 500 if an error occurs", async () => {
+      jest.spyOn(console, "error").mockImplementation(() => {});
       jest
         .spyOn(Product, "findByPk")
         .mockRejectedValueOnce(new Error("DB error"));
@@ -317,6 +320,7 @@ describe("API /api/products", () => {
       jest.restoreAllMocks();
     });
     it("should return 500 if an error occurs", async () => {
+      jest.spyOn(console, "error").mockImplementation(() => {});
       jest
         .spyOn(Product, "findByPk")
         .mockRejectedValueOnce(new Error("DB error"));
@@ -384,6 +388,7 @@ describe("API /api/products", () => {
       jest.restoreAllMocks();
     });
     it("should return 500 if an error occurs", async () => {
+      jest.spyOn(console, "error").mockImplementation(() => {});
       jest
         .spyOn(Product, "findByPk")
         .mockRejectedValueOnce(new Error("DB error"));
@@ -442,7 +447,7 @@ describe("API /api/products", () => {
 
       expect(response.status).toBe(200);
       expect(response.body.message).toBe(
-        "Producto eliminado satisfactoriamente",
+        "Producto eliminado correctamente",
       );
     });
 
